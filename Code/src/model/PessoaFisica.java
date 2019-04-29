@@ -2,6 +2,7 @@ package model;
 
 public class PessoaFisica {
 	
+	private int id;
 	private int cpf;
 	private Cliente cliente;
 	
@@ -9,10 +10,19 @@ public class PessoaFisica {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PessoaFisica(int cpf, Cliente cliente) {
+	public PessoaFisica(int id, int cpf, Cliente cliente) {
 		super();
+		this.id = id;
 		this.cpf = cpf;
 		this.cliente = cliente;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getCpf() {
