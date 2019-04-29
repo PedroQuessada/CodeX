@@ -19,7 +19,7 @@ public class PessoaFisicaDAO {
 	public void createPessoaFisica(PessoaFisica pessoaFisica) {
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		String sqlComand = "INSERT INTO pessoaFisica (cpf, clienete) VALUES (?, ?)";
+		String sqlComand = "INSERT INTO pessoa_fisica (cpf, cliente_id) VALUES (?, ?)";
 		
 		try(PreparedStatement stm = conn.prepareStatement(sqlComand, Statement.RETURN_GENERATED_KEYS)){
 			stm.setInt(1, pessoaFisica.getCpf());
@@ -48,7 +48,7 @@ public class PessoaFisicaDAO {
 	public void updatePessoaFisica(PessoaFisica pessoaFisica) {
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		String sqlComand = "UPDATE pessoaFisica SET cpf = ?, cliente = ? WHERE id = ?";
+		String sqlComand = "UPDATE pessoa_fisica SET cpf = ?, cliente_id = ? WHERE id = ?";
 		
 		try(PreparedStatement stm = conn.prepareStatement(sqlComand, Statement.RETURN_GENERATED_KEYS)){
 			stm.setInt(1, pessoaFisica.getCpf());
@@ -68,7 +68,7 @@ public class PessoaFisicaDAO {
 	public void deletePessoaFisica(int id) {
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		String sqlComand = "DELETE FROM pessoaFisica WHERE id = ?";
+		String sqlComand = "DELETE FROM pessoa_fisica WHERE id = ?";
 		try(PreparedStatement stm = conn.prepareStatement(sqlComand, Statement.RETURN_GENERATED_KEYS)){
 			stm.setInt(1, id);
 			stm.executeUpdate();
@@ -86,7 +86,7 @@ public class PessoaFisicaDAO {
 		PessoaFisica pessoaFisica = new PessoaFisica();
 		ClienteDAO dao = new ClienteDAO();
 		Connection conn = new ConnectionFactory().getConnection();
-		String sqlInsert = "SELECT cpf, cliente FROM pessoaFisica WHERE id =?";
+		String sqlInsert = "SELECT cpf, cliente_id FROM pessoa_fisica WHERE id =?";
 		
 		try(PreparedStatement stm = conn.prepareStatement(sqlInsert)){
 			
@@ -96,7 +96,7 @@ public class PessoaFisicaDAO {
 			if(rs.next()) {
 				pessoaFisica.setId(id);
 				pessoaFisica.setCpf(rs.getInt("cpf"));
-				pessoaFisica.setCliente(dao.loadCliente(rs.getInt("cliente")));
+				pessoaFisica.setCliente(dao.loadCliente(rs.getInt("cliente_id")));
 			}
 			
 		}catch(SQLException e) {

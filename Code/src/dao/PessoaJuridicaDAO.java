@@ -18,7 +18,7 @@ public class PessoaJuridicaDAO {
 	public void createPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		String sqlComand = "INSERT INTO pessoaJuridica (nome_fantasia, cnpj, cliente, fornecedor) VALUES (?, ?, ?, ?)";
+		String sqlComand = "INSERT INTO pessoa_juridica (nome_fantasia, cnpj, cliente_id, fornecedor) VALUES (?, ?, ?, ?)";
 		
 		try(PreparedStatement stm = conn.prepareStatement(sqlComand, Statement.RETURN_GENERATED_KEYS)){
 			stm.setString(1, pessoaJuridica.getNomeFantasia());
@@ -49,7 +49,7 @@ public class PessoaJuridicaDAO {
 	public void updatepessoaFisica(PessoaJuridica pessoaJuridica) {
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		String sqlComand = "UPDATE pessoaJuridica SET nome_fantasia = ?, cnpj = ?, cliente = ?, fornecedor = ? WHERE id = ?";
+		String sqlComand = "UPDATE pessoa_juridica SET nome_fantasia = ?, cnpj = ?, cliente_id = ?, fornecedor = ? WHERE id = ?";
 		
 		try(PreparedStatement stm = conn.prepareStatement(sqlComand, Statement.RETURN_GENERATED_KEYS)){
 			stm.setString(1, pessoaJuridica.getNomeFantasia());
@@ -71,7 +71,7 @@ public class PessoaJuridicaDAO {
 	public void deletepessoaJuridica(int id) {
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		String sqlComand = "DELETE FROM pessoaJuridica WHERE id = ?";
+		String sqlComand = "DELETE FROM pessoa_juridica WHERE id = ?";
 		try(PreparedStatement stm = conn.prepareStatement(sqlComand, Statement.RETURN_GENERATED_KEYS)){
 			stm.setInt(1, id);
 			stm.executeUpdate();
@@ -89,7 +89,7 @@ public class PessoaJuridicaDAO {
 		PessoaJuridica pessoaJuridica = new PessoaJuridica();
 		ClienteDAO dao = new ClienteDAO();
 		Connection conn = new ConnectionFactory().getConnection();
-		String sqlInsert = "SELECT nome_fantasia, cnpj, fornecedor, cliente FROM pessoaFisica WHERE id =?";
+		String sqlInsert = "SELECT nome_fantasia, cnpj, fornecedor, cliente_id FROM pessoa_fisica WHERE id =?";
 		
 		try(PreparedStatement stm = conn.prepareStatement(sqlInsert)){
 			
@@ -101,7 +101,7 @@ public class PessoaJuridicaDAO {
 				pessoaJuridica.setNomeFantasia(rs.getString("nome_fantasia"));
 				pessoaJuridica.setCnpj(rs.getInt("cnpj"));
 				pessoaJuridica.setFornecedor(rs.getInt("fornecedor"));
-				pessoaJuridica.setCliente(dao.loadCliente(rs.getInt("cliente")));
+				pessoaJuridica.setCliente(dao.loadCliente(rs.getInt("cliente_id")));
 			}
 			
 		}catch(SQLException e) {

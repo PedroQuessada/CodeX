@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Produto {
 	
 	private int id;
-	private int nome;
+	private String nome;
 	private int quantidade;
 	private Date dataEntrada;
 	private Date dataSaida;
@@ -20,7 +20,7 @@ public class Produto {
 	}
 
 	
-	public Produto(int id, int nome, int quantidade, Date dataEntrada, Date dataSaida, double valor, double custo,
+	public Produto(int id, String nome, int quantidade, Date dataEntrada, Date dataSaida, double valor, double custo,
 			String descricao, int qtdMinimo, PessoaJuridica pessoaJuridica) {
 		super();
 		this.id = id;
@@ -45,11 +45,11 @@ public class Produto {
 		this.id = id;
 	}
 
-	public int getNome() {
+	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(int nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 

@@ -19,7 +19,7 @@ public class ClienteDAO {
 	public void createCliente(Cliente cliente) {
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		String sqlComand = "INSERT INTO Cliente (nome, telefone, email, endereco) VALUES (?, ?, ?, ?)";
+		String sqlComand = "INSERT INTO Cliente (nome, telefone, email, endereco_id) VALUES (?, ?, ?, ?)";
 		
 		try(PreparedStatement stm = conn.prepareStatement(sqlComand, Statement.RETURN_GENERATED_KEYS)){
 			stm.setString(1, cliente.getNome());
@@ -50,7 +50,7 @@ public class ClienteDAO {
 	public void updateCliente(Cliente cliente) {
 		Connection conn = new ConnectionFactory().getConnection();
 		
-		String sqlComand = "UPDATE cliente SET nome = ?, telefone = ?, email = ?, endereco = ? WHERE id = ?";
+		String sqlComand = "UPDATE cliente SET nome = ?, telefone = ?, email = ?, endereco_id = ? WHERE id = ?";
 		
 		try(PreparedStatement stm = conn.prepareStatement(sqlComand, Statement.RETURN_GENERATED_KEYS)){
 			stm.setString(1, cliente.getNome());
@@ -90,7 +90,7 @@ public class ClienteDAO {
 		EnderecoDAO dao = new EnderecoDAO();
 		Cliente cliente = new Cliente();
 		Connection conn = new ConnectionFactory().getConnection();
-		String sqlInsert = "SELECT nome, telefone, email, endereco FROM cliente WHERE id =?";
+		String sqlInsert = "SELECT nome, telefone, email, endereco_id FROM cliente WHERE id =?";
 		
 		try(PreparedStatement stm = conn.prepareStatement(sqlInsert)){
 			
